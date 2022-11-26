@@ -106,7 +106,108 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
+        Container(
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(left: (220)),
+          child: InkWell(
+            onTap: () {
+              print("forgot password tapped");
+            },
+            child: const Text(
+              'Forgot Password?',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+        Row(
+          children: const [
+            Padding(padding: EdgeInsets.only(left: 30, top: 10)),
+            Expanded(
+              child: Text(
+                'Remember me',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w400),
+              ),
+            ),
+          ],
+        ),
+        Container(
+          margin: const EdgeInsets.all(15),
+          child: TextButton(
+            style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                shadowColor: Colors.black,
+                elevation: 5,
+                padding: const EdgeInsets.only(
+                    left: 150, top: 15, right: 150, bottom: 15)),
+            onPressed: () {
+              print('Login pressed');
+            },
+            child: const Text(
+              'LOGIN',
+              style: TextStyle(color: Colors.blue, fontSize: 18.0),
+            ),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            '-OR-',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'Sign in with',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MaterialButton(
+                color: Colors.white,
+                onPressed: () {},
+                shape: const CircleBorder(),
+                child: const Icon(
+                  Icons.facebook,
+                  size: 50,
+                ),
+              ),
+              MaterialButton(
+                color: Colors.white,
+                onPressed: () {},
+                shape: const CircleBorder(),
+                child: const Icon(
+                  Icons.abc,
+                  size: 50,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.all(20),
+          child: InkWell(
+            onTap: () {
+              print("Dont have account");
+            },
+            child: const Text(
+              "Don't have an account? Sign Up",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
       ]),
     ));
   }
