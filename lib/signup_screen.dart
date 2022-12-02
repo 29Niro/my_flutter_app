@@ -145,18 +145,8 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.only(left: (220)),
-          child: InkWell(
-            onTap: () {
-              print("forgot password tapped");
-            },
-            child: const Text(
-              'Forgot Password?',
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
+        const SizedBox(
+          height: 25,
         ),
         Row(
           children: const [
