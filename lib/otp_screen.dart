@@ -20,24 +20,24 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget otpNumberWidget(int position) {
     try {
       return Container(
-        height: 40,
-        width: 40,
+        height: 50,
+        width: 50,
         decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 0),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
+            borderRadius: const BorderRadius.all(Radius.circular(25))),
         child: Center(
             child: Text(
           text[position],
-          style: const TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black, fontSize: 30),
         )),
       );
     } catch (e) {
       return Container(
-        height: 40,
-        width: 40,
+        height: 50,
+        width: 50,
         decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 0),
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
+            borderRadius: const BorderRadius.all(Radius.circular(25))),
       );
     }
   }
@@ -60,7 +60,9 @@ class _OtpScreenState extends State<OtpScreen> {
               size: 16,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         elevation: 0,
         backgroundColor: Colors.white,
@@ -154,6 +156,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     text = text.substring(0, text.length - 1);
                   });
                 },
+              ),
+              const SizedBox(
+                height: 45,
               )
             ],
           ))
