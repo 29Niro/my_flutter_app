@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_flutter_app/signup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +14,10 @@ class LoginScreen extends StatelessWidget {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          Color.fromARGB(255, 115, 174, 245),
-          Color.fromARGB(255, 97, 164, 241),
-          Color.fromARGB(255, 71, 141, 224),
-          Color.fromARGB(255, 57, 138, 229),
-
+          Color(0xFF73AEF5),
+          Color(0xFF61A4F1),
+          Color(0xFF478DE0),
+          Color(0xFF398AE5),
         ],
         stops: [0.1, 0.4, 0.7, 0.9],
       )),
@@ -28,7 +26,7 @@ class LoginScreen extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.only(top: 70.0),
           child: Text(
-            'Sign In',
+            'Sign Up',
             style: TextStyle(
                 color: Colors.white,
                 fontFamily: 'Robika',
@@ -42,7 +40,7 @@ class LoginScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(25.0),
           child: Container(
-            height: 60.0,
+            // height: 60.0,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 129, 179, 240),
               borderRadius: BorderRadius.circular(10.0),
@@ -77,7 +75,7 @@ class LoginScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 25, right: 25),
           child: Container(
-            height: 60.0,
+            // height: 60.0,
             decoration: BoxDecoration(
               color: const Color.fromARGB(255, 129, 179, 240),
               borderRadius: BorderRadius.circular(10.0),
@@ -109,18 +107,46 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
         ),
-        Container(
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.only(left: (220)),
-          child: InkWell(
-            onTap: () {
-              print("forgot password tapped");
-            },
-            child: const Text(
-              'Forgot Password?',
-              style: TextStyle(color: Colors.white),
+        const SizedBox(
+          height: 25,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 25, right: 25),
+          child: Container(
+            // height: 60.0,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 129, 179, 240),
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 6.0,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: const Padding(
+              padding: EdgeInsets.all(4.0),
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.only(top: 14.0),
+                    prefixIcon: Icon(
+                      Icons.lock_outline_rounded,
+                      color: Colors.white,
+                    ),
+                    hintText: 'Confirm Password',
+                    hintStyle: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Robika',
+                        fontSize: 16)),
+              ),
             ),
           ),
+        ),
+        const SizedBox(
+          height: 25,
         ),
         Row(
           children: const [
@@ -146,12 +172,12 @@ class LoginScreen extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 5,
                 padding: const EdgeInsets.only(
-                    left: 150, top: 15, right: 150, bottom: 15)),
+                    left: 130, top: 15, right: 130, bottom: 15)),
             onPressed: () {
-              print('Login pressed');
+              print('signup pressed');
             },
             child: const Text(
-              'LOGIN',
+              'SIGN UP',
               style: TextStyle(color: Colors.blue, fontSize: 18.0),
             ),
           ),
@@ -166,7 +192,7 @@ class LoginScreen extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Sign in with',
+            'Sign up with',
             style: TextStyle(
               color: Colors.white,
             ),
@@ -202,19 +228,15 @@ class LoginScreen extends StatelessWidget {
           margin: const EdgeInsets.all(20),
           child: InkWell(
             onTap: () {
-              print("Dont have account");
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: ((context) => const SignUpScreen())));
+              print("have an account");
+              Navigator.pop(context);
             },
             child: const Text(
-              "Don't have an account? Sign Up",
+              "Already have an account? Login",
               style: TextStyle(color: Colors.white),
             ),
           ),
         ),
-        )
       ]),
     ));
   }
