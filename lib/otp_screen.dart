@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_flutter_app/home_page.dart';
 import 'package:numeric_keyboard/numeric_keyboard.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
+
   @override
-  _OtpScreenState createState() => _OtpScreenState();
+  State<OtpScreen> createState() => _OtpScreenState();
 }
 
 class _OtpScreenState extends State<OtpScreen> {
@@ -113,7 +115,12 @@ class _OtpScreenState extends State<OtpScreen> {
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 constraints: const BoxConstraints(maxWidth: 500),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => const Homepage())));
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 57, 138, 229),
                   ),
