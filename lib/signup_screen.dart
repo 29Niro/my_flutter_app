@@ -1,9 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'otp_screen.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _checkPasswordTextController =
+      TextEditingController();
+
+  bool showOverlay = false;
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +27,13 @@ class SignUpScreen extends StatelessWidget {
         width: double.infinity,
         decoration: const BoxDecoration(
             gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF73AEF5),
-            Color(0xFF61A4F1),
-            Color(0xFF478DE0),
-            Color(0xFF398AE5),
-          ],
-          stops: [0.1, 0.4, 0.7, 0.9],
-        )),
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              Color.fromARGB(225, 203, 43, 147),
+              Color.fromARGB(225, 149, 70, 196),
+              Color.fromARGB(225, 94, 97, 244),
+            ])),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -46,7 +56,7 @@ class SignUpScreen extends StatelessWidget {
                 child: Container(
                   // height: 60.0,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 129, 179, 240),
+                    color: Colors.white.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: const [
                       BoxShadow(
@@ -56,11 +66,12 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(4.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
                     child: TextField(
+                      controller: _emailTextController,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.only(top: 14.0),
                           prefixIcon: Icon(
@@ -72,6 +83,10 @@ class SignUpScreen extends StatelessWidget {
                               color: Colors.white,
                               fontFamily: 'Robika',
                               fontSize: 16)),
+                      style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18.0),
                     ),
                   ),
                 ),
@@ -81,7 +96,7 @@ class SignUpScreen extends StatelessWidget {
                 child: Container(
                   // height: 60.0,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 129, 179, 240),
+                    color: Colors.white.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: const [
                       BoxShadow(
@@ -91,11 +106,12 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(4.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
                     child: TextField(
+                      controller: _passwordTextController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.only(top: 14.0),
                           prefixIcon: Icon(
@@ -107,6 +123,10 @@ class SignUpScreen extends StatelessWidget {
                               color: Colors.white,
                               fontFamily: 'Robika',
                               fontSize: 16)),
+                      style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18.0),
                     ),
                   ),
                 ),
@@ -119,7 +139,7 @@ class SignUpScreen extends StatelessWidget {
                 child: Container(
                   // height: 60.0,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 129, 179, 240),
+                    color: Colors.white.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(10.0),
                     boxShadow: const [
                       BoxShadow(
@@ -129,11 +149,12 @@ class SignUpScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(4.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
                     child: TextField(
+                      controller: _checkPasswordTextController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.only(top: 14.0),
                           prefixIcon: Icon(
@@ -145,6 +166,10 @@ class SignUpScreen extends StatelessWidget {
                               color: Colors.white,
                               fontFamily: 'Robika',
                               fontSize: 16)),
+                      style: TextStyle(
+                          color: Colors.white.withOpacity(0.9),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18.0),
                     ),
                   ),
                 ),
@@ -178,10 +203,27 @@ class SignUpScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           left: 130, top: 15, right: 130, bottom: 15)),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) => const OtpScreen())));
+                    if (_passwordTextController.text ==
+                        _checkPasswordTextController.text) {
+                      FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: _emailTextController.text,
+                              password: _passwordTextController.text)
+                          .then((value) {
+                        // ignore: avoid_print
+                        print("Created New Account");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => const OtpScreen())));
+                      }).onError((error, stackTrace) {
+                        // ignore: avoid_print
+                        print("Error ${error.toString()}");
+                      });
+                    } else {
+                      // ignore: avoid_print
+                      print("Passwords dosn't match");
+                    }
                   },
                   child: const Text(
                     'SIGN UP',
@@ -231,17 +273,31 @@ class SignUpScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.all(20),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    "Already have an account? Login",
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Already have an account? ",
                     style: TextStyle(color: Colors.white),
                   ),
-                ),
+                  InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        setState(() {
+                          showOverlay = true;
+                        });
+                        Future.delayed(const Duration(seconds: 5), () {
+                          setState(() {
+                            showOverlay = false;
+                          });
+                        });
+                      },
+                      child: const Text(
+                        "Log In",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )),
+                ],
               ),
             ]),
       ),
