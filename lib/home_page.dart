@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:http/http.dart' as http;
@@ -19,7 +20,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   Future apicall() async {
     http.Response response;
-    response = await http.get('https://reqres.in/api/users?page=2');
+    response = await http.get(Uri.parse('https://reqres.in/api/users?page=2'));
     if (response.statusCode == 200) {
       setState(() {
         // stringResponse = response.body;
@@ -42,8 +43,14 @@ class _HomepageState extends State<Homepage> {
         appBar: AppBar(
           title: const Text("Demo Profile"),
           leading: BackButton(onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: ((context) => const LoginScreen())));
+            FirebaseAuth.instance.signOut().then((value) {
+              // ignore: avoid_print
+              print("Signed Out");
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: ((context) => const LoginScreen())));
+            });
           }),
         ),
         body: ListView.builder(
